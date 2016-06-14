@@ -1,5 +1,9 @@
 package de.hrw.dapro.Models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Automodell implements Comparable<Automodell> {
 	
 	private int m_id;
@@ -18,15 +22,15 @@ public class Automodell implements Comparable<Automodell> {
 	private float m_guete = 0.0f;
 	
 
-	public Automodell(int id, int autoartId, String hersteller, 
-			String bezeichnung, int sitzplaetze, float kw, String treibstoff,
+	public Automodell(int id,  String bezeichnung, String hersteller, int autoartId, 
+			 int sitzplaetze, float kw, String treibstoff,
 			float preisTag, float preisKm, int achsen, int ladeVolumen,
 			int zuladung, String fuehrerschein
 			) 
 	{
-		this.m_id = id;
-		this.m_autoartId = autoartId;
+		this.m_id = id;		
 		this.m_hersteller = hersteller;
+		this.m_autoartId = autoartId;
 		this.m_bezeichnung = bezeichnung;
 		this.m_sitzplaetze = sitzplaetze;
 		this.m_kw = kw;
@@ -49,6 +53,50 @@ public class Automodell implements Comparable<Automodell> {
 	@Override
 	public int compareTo(Automodell compare) {
 		return ((int) (this.guete() - compare.guete()) * 100);
+	}
+	
+	/**
+	 * Create {@link Automodell} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Automodell}
+	 */
+	public static ArrayList<Automodell> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Automodell> modell = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				modell.add(new Automodell(rs.getInt(1), rs.getString(2),
+						 rs.getString(3), rs.getInt(4),
+						rs.getInt(5), rs.getFloat(6),
+						rs.getString(7), rs.getFloat(8),
+						rs.getFloat(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12),
+						rs.getString(13)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modell;
+	}
+	
+	/**
+	 * Implement toString for {@link Automodell} objects
+	 */
+	public String toString() {
+		return "#" + id() + " - Autoart: " 
+				+ autoartId() + " - "
+				+ hersteller() + " - "
+				+ bezeichnung() + " - Sitze: " 
+				+ sitzplaetze() + " - "
+				+ kw() + "kW - " 
+				+ treibstoff() + " - "
+				+ preisTag() + "€/Tag - " 
+				+ preisKm() + "€/km - "
+				+ achsen() + " Achsen - "
+				+ ladeVolumen() + " Ladevolumen - "
+				+ zuladung() + " Zuladung - Führerschein: "
+				+ fuehrerschein();
 	}
 
 	/**

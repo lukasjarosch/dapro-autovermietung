@@ -1,6 +1,9 @@
 package de.hrw.dapro.Models;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Leihvertrag {
 
@@ -26,6 +29,44 @@ public class Leihvertrag {
 		this.m_endKm = endKm;
 		this.m_rechnungsBetrag = rechnungsBetrag;
 		this.m_bezahlt = bezahlt;
+	}
+	
+	/**
+	 * Create {@link Leihvertrag} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Leihvertrag}
+	 */
+	public static ArrayList<Leihvertrag> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Leihvertrag> modell = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				modell.add(new Leihvertrag(rs.getInt(1), rs.getInt(2),
+						rs.getInt(3), rs.getDate(4),
+						rs.getDate(5), rs.getInt(6),
+						rs.getInt(7), rs.getFloat(8),
+						rs.getBoolean(9)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modell;
+	}
+	
+	/**
+	 * Implement toString for {@link Leihvertrag} objects
+	 */
+	public String toString() {
+		return "#" + id() + " - Kunde: " 
+				+ kundenId() + " - Auto: "
+				+ autoId() + " - Beginn: "
+				+ beginn().toString() + " - Ende: "
+				+ ende().toString() + " - BeginnKm: " 
+				+ startKm() + "km - EndeKm: "
+				+ endKm() + "km - Rechnungsbetrag: "
+				+ rechnungsBetrag() + "€ - Bezahlt: "
+				+ bezahlt();
 	}
 	
 	/**

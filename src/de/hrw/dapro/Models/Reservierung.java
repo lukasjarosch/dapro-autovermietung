@@ -1,6 +1,9 @@
 package de.hrw.dapro.Models;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Reservierung {
 
@@ -13,11 +16,41 @@ public class Reservierung {
 	public Reservierung(int id, int kundenId, int modellId, Date beginn, Date ende) {
 		this.m_id = id;
 		this.m_kundenId = kundenId;
-		this.m_kundenId = modellId;
+		this.m_modellId = modellId;
 		this.m_beginn = beginn;
 		this.m_ende = ende;
+
 	}
 
+	/**
+	 * Create {@link Reservierung} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Reservierung}
+	 */
+	public static ArrayList<Reservierung> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Reservierung> modell = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				modell.add(new Reservierung(rs.getInt(1), rs.getInt(2),
+						rs.getInt(3), rs.getDate(4), rs.getDate(5)));				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modell;
+	}
+	
+	/**
+	 * Implement toString for {@link Leihvertrag} objects
+	 */
+	public String toString() {
+		return "#" + id() + " - Kunde: " + kundenId() + " - Modell: "
+				+ modellId() + " - Beginn: " + beginn().toString() + " - Ende: "
+				+ ende().toString();
+	}
+	
 	/**
 	 * @return the id
 	 */

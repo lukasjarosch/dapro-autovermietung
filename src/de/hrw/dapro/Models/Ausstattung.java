@@ -1,5 +1,9 @@
 package de.hrw.dapro.Models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  * Ausstattung Model
  * 
@@ -23,9 +27,36 @@ public class Ausstattung {
 	}
 
 	/**
+	 * Create {@link Ausstattung} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Ausstattung}
+	 */
+	public static ArrayList<Ausstattung> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Ausstattung> ausstattung = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				ausstattung.add(new Ausstattung(rs.getInt(1), rs.getString(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ausstattung;
+	}
+	
+	/**
+	 * Implement toString for {@link Ausstattung} objects
+	 */
+	public String toString() {
+		return "#" + id() + " - " 
+				+ bezeichnung();
+	}
+	
+	/**
 	 * @return the m_id
 	 */
-	public int getId() {
+	public int id() {
 		return m_id;
 	}
 

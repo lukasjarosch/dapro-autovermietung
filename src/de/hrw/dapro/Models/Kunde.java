@@ -1,5 +1,9 @@
 package de.hrw.dapro.Models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Kunde {
 
 	private int m_id;
@@ -22,6 +26,38 @@ public class Kunde {
 		this.m_telNr = telNr;
 	}
 
+	/**
+	 * Create {@link Kunde} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Kunde}
+	 */
+	public static ArrayList<Kunde> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Kunde> modell = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				modell.add(new Kunde(rs.getInt(1), rs.getString(2),
+						rs.getString(3), rs.getInt(4),
+						rs.getString(5), rs.getString(6),
+						rs.getString(7), rs.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modell;
+	}
+	
+	/**
+	 * Implement toString for {@link Kunde} objects
+	 */
+	public String toString() {
+		return "#" + id() + " - " 
+				+ vorname() + " " + nachname() + " - "
+				+ plz() + " " + ort() + " - "
+				+ strasse() + " - " + email() + " - " + telNr();
+	}
+	
 	/**
 	 * @return the m_id
 	 */

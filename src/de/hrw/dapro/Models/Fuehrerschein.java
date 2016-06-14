@@ -1,5 +1,9 @@
 package de.hrw.dapro.Models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Fuehrerschein {
 
 	private int m_kundenId;
@@ -8,6 +12,32 @@ public class Fuehrerschein {
 	public Fuehrerschein(int kundenId, String klasse) {
 		this.m_kundenId = kundenId;
 		this.m_klasse = klasse;
+	}
+	
+	/**
+	 * Create {@link Fuehrerschein} Objects from {@link ResultSet} and store them in an {@link ArrayList}
+	 * 
+	 * @param rs The ResultSet
+	 * @return {@link ArrayList} of {@link Fuehrerschein}
+	 */
+	public static ArrayList<Fuehrerschein> sqlFactory(ResultSet rs) 
+	{
+		ArrayList<Fuehrerschein> modell = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				modell.add(new Fuehrerschein(rs.getInt(1), rs.getString(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modell;
+	}
+	
+	/**
+	 * Implement toString for {@link Fuehrerschein} objects
+	 */
+	public String toString() {
+		return "Kunde #" + kundenId() + " - Klasse: " + klasse();
 	}
 
 	/**
