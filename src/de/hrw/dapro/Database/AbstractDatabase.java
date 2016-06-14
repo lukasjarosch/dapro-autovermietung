@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public abstract class AbstractDatabase {
 	
-	private String m_connectionString;
-	private String m_username;
-	private String m_password;
-	
+	protected String m_connectionString;
+	protected String m_username;
+	protected String m_password;
+		
 	/**
 	 * Init the database connection
 	 */
-	public abstract void connect(String connectionString, String username, String password);
+	public abstract void connect();
 	
 	/**
 	 * Disconnect from the database
@@ -38,13 +38,14 @@ public abstract class AbstractDatabase {
 	 * @param columns
 	 * @param values
 	 */
-	public abstract void insert(String table, String[] columns,  String[] values);
+	public abstract void insert(String table, String[] columns,  ArrayList<Object> values);
 	
 	/**
 	 * Inserts a record but locks the table.
 	 * 
 	 * Query: 	LOCK TABLES <table> WRITE;
 	 * 			INSERT INTO <table> (<columns>) VALUES (<values>);
+	 * 			SELECT LAST_INSERT_ID;
 	 * 			UNLOCK TABLES;
 	 * 
 	 * @param table
@@ -53,7 +54,7 @@ public abstract class AbstractDatabase {
 	 * @return Success state: 	>=0: Success
 	 * 							<0: Fail
 	 */
-	public abstract int insertLocked(String table,  String[] columns,  String[] values);
+	public abstract int insertLocked(String table,  String[] columns,  ArrayList<Object> values);
 
 	/**
 	 * @return the connectionString
@@ -86,14 +87,14 @@ public abstract class AbstractDatabase {
 	/**
 	 * @return the password
 	 */
-	private String password() {
+	protected String password() {
 		return this.m_password;
 	}
 
 	/**
 	 * @param password the password to set
 	 */
-	private void setPassword(String password) {
+	protected void setPassword(String password) {
 		this.m_password = password;
 	}
 	
