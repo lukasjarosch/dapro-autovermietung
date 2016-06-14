@@ -1,6 +1,8 @@
 package de.hrw.dapro.Database;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public abstract class AbstractDatabase {
@@ -56,6 +58,39 @@ public abstract class AbstractDatabase {
 	 */
 	public abstract int insertLocked(String table,  String[] columns,  ArrayList<Object> values);
 
+	
+	/**
+	 * Retrieves the column names from a specific {@link ResultSet}
+	 * 
+	 * @param rs
+	 * @return ArrayList<String>
+	 * @throws SQLException 
+	 */
+	public static ArrayList<String> columnNames(ResultSet rs) throws SQLException 
+	{
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		ArrayList<String> names = new ArrayList<>();
+		
+		for(int i = 1; i <= columnCount; i++) {
+			names.add(rsmd.getColumnName(i));
+		}
+		return names;
+	}
+	
+	/**
+	 * Retrieves the amount of columns based on the metadata of a {@link ResultSet}
+	 * 
+	 * @param rs
+	 * @return int
+	 * @throws SQLException
+	 */
+	public static int columnCount(ResultSet rs) throws SQLException
+	{
+		ResultSetMetaData rsmd = rs.getMetaData();
+		return rsmd.getColumnCount();
+	}
+	
 	/**
 	 * @return the connectionString
 	 */
