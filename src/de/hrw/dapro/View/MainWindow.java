@@ -7,29 +7,55 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTable tblData;
+	private static MainWindow m_instance = null;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	/*
 	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainWindow window = new MainWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	*/
+	/**
+	 * Returns the instance of the {@link MainWindow} 
+	 * 
+	 * @return {@link MainWindow}
+	 */
+	public static synchronized MainWindow getInstance() {
+		if(m_instance == null) {
+			m_instance = new MainWindow();
+		}
+		return m_instance;
+	}
+	
+	/**
+	 * Start the View Thread and display the main window
+	 */
+	public void show() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,7 +71,7 @@ public class MainWindow {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	private MainWindow() {
 		initialize();
 	}
 

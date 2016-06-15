@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Kunde {
+public class Kunde  {
 
 	private int m_id;
 	private String m_vorname;

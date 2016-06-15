@@ -40,7 +40,7 @@ public class MysqlDatabase extends AbstractDatabase {
 	@Override
 	public void disconnect() {
 		try {
-			if(!connection().isClosed() && connection() != null) {			
+			if(connection() != null && !connection().isClosed()) {			
 				connection().close();	
 				System.out.println("[SQL]: Connection closed");
 			}

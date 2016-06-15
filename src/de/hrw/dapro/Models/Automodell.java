@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Automodell implements Comparable<Automodell> {
+public class Automodell implements Comparable<Automodell>{
 	
 	private int m_id;
 	private int m_autoartId;

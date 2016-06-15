@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 
  * @author Lukas
  */
-public class Ausstattung {
+public class Ausstattung{
 
 	private int m_id;
 	private String m_Bezeichnung;

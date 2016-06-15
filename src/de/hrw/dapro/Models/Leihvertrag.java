@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Leihvertrag {
+public class Leihvertrag  {
 
 	private int m_id;
 	private int m_kundenId;

@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ModellHatAusstattung {
+public class ModellHatAusstattung  {
 
 	private int m_modellId;
 	private int m_ausstattungId;

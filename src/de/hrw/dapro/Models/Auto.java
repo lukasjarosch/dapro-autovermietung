@@ -9,7 +9,7 @@ import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 import de.hrw.dapro.Database.MysqlDatabase;
 
-public class Auto {
+public class Auto  {
 
 	private int m_id;
 	private String m_kennzeichen;

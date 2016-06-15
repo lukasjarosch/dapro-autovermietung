@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Fuehrerschein {
+public class Fuehrerschein{
 
 	private int m_kundenId;
 	private String m_klasse;
