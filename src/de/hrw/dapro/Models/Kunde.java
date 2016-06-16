@@ -9,13 +9,13 @@ public class Kunde  {
 	private int m_id;
 	private String m_vorname;
 	private String m_nachname;
-	private int m_plz;
+	private String m_plz;
 	private String m_ort;
 	private String m_strasse;
 	private String m_email;
 	private String m_telNr;
 	
-	public Kunde(int id, String vorname, String nachname, int plz, String ort, String strasse, String email, String telNr) {
+	public Kunde(int id, String vorname, String nachname, String plz, String ort, String strasse, String email, String telNr) {
 		this.m_id = id;
 		this.m_vorname = vorname;
 		this.m_nachname = nachname;
@@ -38,7 +38,7 @@ public class Kunde  {
 		try {
 			while(rs.next()) {
 				modell.add(new Kunde(rs.getInt(1), rs.getString(2),
-						rs.getString(3), rs.getInt(4),
+						rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6),
 						rs.getString(7), rs.getString(8)));
 			}
@@ -103,14 +103,14 @@ public class Kunde  {
 	/**
 	 * @return the m_plz
 	 */
-	public int plz() {
+	public String plz() {
 		return m_plz;
 	}
 
 	/**
 	 * @param m_plz the m_plz to set
 	 */
-	public void setPlz(int plz) {
+	public void setPlz(String plz) {
 		this.m_plz = plz;
 	}
 

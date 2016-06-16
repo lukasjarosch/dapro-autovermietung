@@ -1,20 +1,18 @@
 package de.hrw.dapro.Controller;
 
 import de.hrw.dapro.Database.AbstractDatabase;
-import de.hrw.dapro.View.MainWindow;
 
 public class ApplicationController {
 	
 	private static ApplicationController m_instance = null;	
 	private static AbstractDatabase m_databaseConnection = null;
-	private static MainWindow m_mainWindow = null;
 	private DatabaseController m_databaseController = null;
+	private boolean m_running = true;
 	
 	/**
 	 * Private constructor to implement simple singleton
 	 */
 	private ApplicationController() {
-		setMainWindow(MainWindow.getInstance());
 		setDatabaseController(new DatabaseController());
 	};
 	
@@ -28,6 +26,15 @@ public class ApplicationController {
 			m_instance = new ApplicationController();
 		}
 		return m_instance;
+	}
+	
+	/**
+	 * The main application loop
+	 */
+	public void applicationLoop() {
+		while(m_running == true) {
+			MenuController.printMainMenu();
+		}
 	}
 
 	/**
@@ -45,20 +52,6 @@ public class ApplicationController {
 	}
 	
 	/**
-	 * @return the m_mainWindow
-	 */
-	public MainWindow mainWindow() {
-		return m_mainWindow;
-	}
-	
-	/**
-	 * @param window The MainWindow to set
-	 */
-	public void setMainWindow(MainWindow window) {
-		ApplicationController.m_mainWindow = window;
-	}
-
-	/**
 	 * @return the databaseController
 	 */
 	public DatabaseController databaseController() {
@@ -70,6 +63,20 @@ public class ApplicationController {
 	 */
 	public void setDatabaseController(DatabaseController databaseController) {
 		this.m_databaseController = databaseController;
+	}
+
+	/**
+	 * @return the running
+	 */
+	public boolean isRunning() {
+		return this.m_running;
+	}
+
+	/**
+	 * @param running the running to set
+	 */
+	public void setRunning(boolean running) {
+		this.m_running = running;
 	}
 	
 }

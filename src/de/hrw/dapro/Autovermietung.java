@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import de.hrw.dapro.Controller.ApplicationController;
+import de.hrw.dapro.Controller.MenuController;
 import de.hrw.dapro.Controller.SearchController;
 import de.hrw.dapro.Database.MysqlDatabase;
 import de.hrw.dapro.Models.Ausstattung;
@@ -20,13 +21,26 @@ import de.hrw.dapro.Models.Reservierung;
 public class Autovermietung {
 	
 	private static ApplicationController m_application = null;
-
+	
 	public static void main(String[] args) throws SQLException 
 	{
 		m_application = ApplicationController.getInstance();
 		m_application.setDatabase(new MysqlDatabase("jdbc:mysql://localhost:3306/dapro", "root", "root"));
 		m_application.database().connect();
+		m_application.applicationLoop();
 		
+		/*
+		System.out.println("+========================+");
+		System.out.println("| DAPRO - Autovermietung |");
+		System.out.println("+------------------------+");
+		System.out.println("| Lukas Jarosch - 23837  |");
+		System.out.println("+========================+");
+		*/
+		
+		
+		//AutomodellTableView.printTable(m_application.databaseController().getAutomodelle());
+
+		// Search ----------------------
 		SearchController search = new SearchController();
 
 		String[] hersteller = {"VW", "Opel"};
@@ -45,7 +59,9 @@ public class Autovermietung {
 		search.addAutoartSelector(autoart);
 		search.addZuladungSelector(400);
 		search.addFuehrerscheinSelector(fuehrerschein);
-		ArrayList<Automodell> result = search.getOrderedData();
+		//ArrayList<Automodell> result = search.getOrderedData();
+		
+		// AutomodellTableView.printTable(result);
 		
 		//m_application.mainWindow().show();
 
